@@ -1,0 +1,5 @@
+package transportgrpc
+
+func RunGRPC() {
+
+}
