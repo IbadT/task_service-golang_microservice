@@ -27,7 +27,7 @@ WORKDIR /root/
 COPY --from=builder /app/task_service .
 
 # Указываем переменные окружения (можно взять из `docker-compose.yml`)
-ENV DB_HOST=db
+ENV DB_HOST=task_db
 ENV DB_USER=postgres
 ENV DB_PASSWORD=postgres
 ENV DB_NAME=u_mic

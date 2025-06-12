@@ -11,6 +11,7 @@ type repository struct {
 
 type Repository interface {
 	CreateTask(task Task) error
+	ListTasksByUser(userid uuid.UUID) ([]Task, error)
 	GetTaskById(taskId uuid.UUID) (Task, error)
 	GetTask(taskId uuid.UUID) (Task, error)
 	ListTasks() ([]Task, error)
@@ -20,6 +21,12 @@ type Repository interface {
 
 func NewRepository(db *gorm.DB) Repository {
 	return &repository{DB: db}
+}
+
+func (r *repository) ListTasksByUser(userId uuid.UUID) ([]Task, error) {
+	var tasks []Task
+	err := r.DB.Find(&tasks, "user_id = ?", userId).Error
+	return tasks, err
 }
 
 func (r *repository) GetTaskById(taskId uuid.UUID) (Task, error) {

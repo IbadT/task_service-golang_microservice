@@ -10,12 +10,17 @@ type Service interface {
 	CreateTask(title string, userId uuid.UUID) (Task, error)
 	GetTask(taskId uuid.UUID) (Task, error)
 	ListTasks() ([]Task, error)
+	ListTasksByUser(userId uuid.UUID) ([]Task, error)
 	UpdateTask(taskId uuid.UUID, title string) (Task, error)
 	DeleteTask(taskId uuid.UUID) error
 }
 
 func NewService(r Repository) Service {
 	return &service{repo: r}
+}
+
+func (s *service) ListTasksByUser(userId uuid.UUID) ([]Task, error) {
+	return s.repo.ListTasksByUser(userId)
 }
 
 func (s *service) CreateTask(title string, userId uuid.UUID) (Task, error) {
